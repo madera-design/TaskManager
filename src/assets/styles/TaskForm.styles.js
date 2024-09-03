@@ -14,7 +14,7 @@ export const FormGroup = styled.div`
   flex-direction: column;
 `;
 export const Textarea = styled.textarea`
-  width: 100%;
+  font-size: 17px;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;

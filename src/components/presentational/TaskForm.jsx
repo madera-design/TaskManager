@@ -1,27 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import TextField from '@mui/material/TextField';
+import Swal from 'sweetalert2';
+import dayjs from 'dayjs';
+
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import dayjs from 'dayjs';
-import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+
+import CloseIcon from '@mui/icons-material/Close';
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers-pro/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimeField } from '@mui/x-date-pickers/TimeField';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import {
-  HeaderTitle,
-  FormGroup,
-  Textarea,
-  LabelInput,
-  InputGroup,
-  TextError
-} from '../../assets/styles/TaskForm.styles';
+
+import { HeaderTitle, FormGroup, Textarea, LabelInput, InputGroup, TextError } from '../../assets/styles/TaskForm.styles';
 
 const TaskForm = ({ open, addTask, updateTask, taskToEdit, setTaskToEdit, closeModal }) => {
   // Estados locales para manejar los datos del formulario
@@ -96,10 +94,20 @@ const TaskForm = ({ open, addTask, updateTask, taskToEdit, setTaskToEdit, closeM
     if (isValid) {
       if (taskToEdit) {
         // Actualiza la tarea existente
+        Swal.fire({
+          title: "Tarea Editada correctamente",
+          icon: "success",
+          timer: 1500
+        });
         updateTask({ id: taskToEdit.id, title, description, duration });
         setTaskToEdit(null); // Limpia la tarea en edición
       } else {
         // Agrega una nueva tarea
+        Swal.fire({
+          title: "Tarea creada correctamente",
+          icon: "success",
+          timer: 1500
+        });
         addTask({ title, description, duration, customDuration });
       }
       resetForm(); // Limpia el formulario después de agregar/actualizar

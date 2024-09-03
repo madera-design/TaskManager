@@ -48,7 +48,7 @@ export const generateRandomTasks = () => {
     return `${day}/${month}/${year}`;
 };
 
-  const tasks = Array.from({ length: 50 }, () => {
+  const tasks = Array.from({ length: 5 }, () => {
     const duration = getRandomDuration();
     const isCompleted = Math.random() > 0.5;  // 50% de probabilidad de estar completada
     return {

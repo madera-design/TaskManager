@@ -34,7 +34,7 @@ const TaskManager = () => {
   // Función para eliminar una tarea por su ID
   const deleteTask = (item) => {
     Swal.fire({
-      title: `¿Quieres eliminar la tarea ${item.title}?`,
+      title: `¿Quieres eliminar la tarea "${item.title}"?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",

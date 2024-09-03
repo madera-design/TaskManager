@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import Tooltip from '@mui/material/Tooltip';
-import Chip from '@mui/material/Chip';
+import Swal from 'sweetalert2';
+
+import Avatar from '@mui/material/Avatar';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
 import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
-import PlayCircleOutlineRoundedIcon from '@mui/icons-material/PlayCircleOutlineRounded';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import PauseCircleOutlineRoundedIcon from '@mui/icons-material/PauseCircleOutlineRounded';
+import PlayCircleOutlineRoundedIcon from '@mui/icons-material/PlayCircleOutlineRounded';
 import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import Button from '@mui/material/Button';
-import Swal from 'sweetalert2'
-import {
-  Card,
-  Title,
-  Description,
-  Timer,
-  TitleCrad,
-  ContainerTime,
-  ConatinerBtnAction,
-  BtnGroup
-} from '../../assets/styles/Task.styles';
+
+import { lightBlue, blueGrey, green, orange } from '@mui/material/colors';
+
+import { Title, Description, Timer, ContainerTime, ConatinerBtnAction, BtnGroup } from '../../assets/styles/Task.styles';
+import { PrimaryButton, SecondaryButton, CloseButton,  } from '../../assets/styles/MUI.styles';
 
 const Task = ({ task, onEdit, onDelete, onComplete, onStart }) => {
   // Estado para manejar el tiempo restante, si la tarea está corriendo, si está completada y si está en pausa
@@ -75,7 +75,7 @@ const Task = ({ task, onEdit, onDelete, onComplete, onStart }) => {
   // Marca la tarea como completada y llama a la función onComplete
   const markAsCompleted = () => {
     Swal.fire({
-      title: "Tarea eliminada correctamente",
+      title: "Tarea Completada correctamente",
       icon: "success",
       timer: 1500
     });
@@ -86,86 +86,110 @@ const Task = ({ task, onEdit, onDelete, onComplete, onStart }) => {
   };
 
   return (
-    <Card>
-      <TitleCrad>
-        <Title>{task.title}</Title>
-        {!isCompleted && (
-          <Tooltip title="Eliminar">
-            <IconButton 
-              color="error" 
-              onClick={onDelete} 
-              disabled={isCompleted}
-              aria-label="Eliminar Tarea"
-            >
-              <DeleteForeverRoundedIcon />
-            </IconButton>
-          </Tooltip>
-        )}
-      </TitleCrad>
-      <Description>
-        <CalendarTodayIcon /> 
-        <b>{task.completionDate}</b>
-      </Description>
-      {isCompleted && (
-        <Description>
-          <AccessTimeIcon />
-          <b>{formatTime(task.timeSpent)}</b>
-        </Description>
-      )}
-      <ContainerTime>
-        <Timer>{formatTime(timeLeft)}</Timer>
-        {!isCompleted && (
-          <ConatinerBtnAction>
-            <Tooltip title="Iniciar">
-              <IconButton 
-                color="primary" 
-                onClick={handleStart} 
-                disabled={isRunning}
-                aria-label="Iniciar Tarea"
-              >
-                <PlayCircleOutlineRoundedIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Pausar">
-              <IconButton 
-                color="primary" 
-                onClick={handlePause}
-                disabled={!isRunning}
-                aria-label="Pausar Tarea"
-              >
-                <PauseCircleOutlineRoundedIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Reiniciar">
-              <IconButton 
-                color="primary" 
-                onClick={handleReset}
-                aria-label="Reiniciar Tarea"
-              >
-                <RestartAltRoundedIcon />
-              </IconButton>
-            </Tooltip>
-          </ConatinerBtnAction>
-        )}
-      </ContainerTime>
-      {!isCompleted && (
-        <>
-          {isRunning && <Chip label="Tarea Iniciada" color="primary" filled />}
-          {isPause && <Chip label="Tarea Pausada" color="secondary" filled />}
-        </>
-      )}
-      {isCompleted && <Chip label="Tarea Completada" color="success" filled />}
-      {!isCompleted && (
+    <Card sx={{ maxWidth: 345, marginBottom: 2 }}>
+      <CardHeader
+        avatar={
+          <>
+            {isCompleted ? (
+              <Avatar sx={{ bgcolor: green[300] }}> 
+                <CheckCircleOutlineIcon /> 
+              </Avatar>
+            ) : (
+              <>
+                {isRunning ? (
+                  <Avatar sx={{ bgcolor: lightBlue[300] }}> 
+                    <PlayCircleOutlineRoundedIcon /> 
+                  </Avatar>
+                ) : null}
+                {isPause ? (
+                  <Avatar sx={{ bgcolor: orange[300] }}> 
+                    <PauseCircleOutlineRoundedIcon /> 
+                  </Avatar>
+                ) : null}
+                {!isRunning && !isPause && (
+                  <Avatar sx={{ bgcolor: blueGrey[100] }}> 
+                    <InsertDriveFileIcon /> 
+                  </Avatar>
+                )}
+              </>
+            )}
+          </>
+        }
+        action={
+          <>
+            {!isCompleted && (
+              <Tooltip title="Eliminar">
+                <CloseButton 
+                  color="error" 
+                  onClick={onDelete} 
+                  disabled={isCompleted}
+                  aria-label="Eliminar Tarea"
+                >
+                  <DeleteForeverRoundedIcon />
+                </CloseButton>
+              </Tooltip>
+            )}
+          </>
+        }
+        title={
+          <Title>{task.title}</Title>
+        }
+        subheader={
+          <span>{task.completionDate}</span>
+        }
+      />
+      <CardContent>
+        <Description>{task.description}</Description>
+        {isCompleted && (<Description><b>Duración: {formatTime(task.timeSpent)}</b></Description>)}
+        <ContainerTime>
+          <Timer>{formatTime(timeLeft)}</Timer>
+          {!isCompleted && (
+            <ConatinerBtnAction>
+              <Tooltip title="Iniciar">
+                <IconButton 
+                  color="primary" 
+                  onClick={handleStart} 
+                  disabled={isRunning}
+                  aria-label="Iniciar Tarea"
+                >
+                  <PlayCircleOutlineRoundedIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Pausar">
+                <IconButton 
+                  color="primary" 
+                  onClick={handlePause}
+                  disabled={!isRunning}
+                  aria-label="Pausar Tarea"
+                >
+                  <PauseCircleOutlineRoundedIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Reiniciar">
+                <IconButton 
+                  color="primary" 
+                  onClick={handleReset}
+                  aria-label="Reiniciar Tarea"
+                >
+                  <RestartAltRoundedIcon />
+                </IconButton>
+              </Tooltip>
+            </ConatinerBtnAction>
+          )}
+        </ContainerTime>
+        </CardContent>
+      <CardActions>
         <BtnGroup>
-          <Button 
+          <PrimaryButton 
             color="success" 
             onClick={markAsCompleted} 
-            variant="contained" 
+            variant="contained"
+            disabled={isCompleted} 
             endIcon={<CheckRoundedIcon />}
           >
             Completar
-          </Button>
-          <Button 
+          </PrimaryButton>
+          <SecondaryButton 
             color="primary" 
             onClick={onEdit} 
             disabled={isCompleted} 
@@ -173,9 +197,9 @@ const Task = ({ task, onEdit, onDelete, onComplete, onStart }) => {
             endIcon={<EditRoundedIcon />}
           >
             Editar
-          </Button>
+          </SecondaryButton>
         </BtnGroup>
-      )}
+      </CardActions>
     </Card>
   );
 };

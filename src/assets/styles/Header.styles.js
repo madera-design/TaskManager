@@ -5,12 +5,15 @@ export const HaederContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #1976d2;
+    background: #FAFAFA;
     padding: 0 15px;
+    box-shadow: 0px 3px 6px -3px rgba(77,72,72,0.72);
+-webkit-box-shadow: 0px 3px 6px -3px rgba(77,72,72,0.72);
+-moz-box-shadow: 0px 3px 6px -3px rgba(77,72,72,0.72);
 `;
 
 export const TitleHeader = styled.h1`
-    color: white;
+    color: #1E1E1E;
 `;
 
 export const HeaderContainerBtn = styled.div`
