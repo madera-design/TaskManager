@@ -2,13 +2,13 @@ import styled from 'styled-components';
 
 export const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 2 columnas en pantallas grandes */
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas en pantallas grandes */
   gap: 16px; /* Espacio entre las tareas */
   margin: 0 auto;
   padding: 16px;
 
   @media (max-width: 1200px) {
-    grid-template-columns: repeat(3, 1fr); /* 2 columnas en pantallas medianas */
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en pantallas medianas */
   }
 
   @media (max-width: 800px) {

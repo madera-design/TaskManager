@@ -11,7 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
-import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
+import CloseIcon from '@mui/icons-material/Close';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import PauseCircleOutlineRoundedIcon from '@mui/icons-material/PauseCircleOutlineRounded';
@@ -21,7 +21,7 @@ import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';
 import { lightBlue, blueGrey, green, orange } from '@mui/material/colors';
 
 import { Title, Description, Timer, ContainerTime, ConatinerBtnAction, BtnGroup } from '../../assets/styles/Task.styles';
-import { PrimaryButton, SecondaryButton, CloseButton,  } from '../../assets/styles/MUI.styles';
+import { PrimaryButton, SecondaryButton, CloseButton} from '../../assets/styles/MUI.styles';
 
 const Task = ({ task, onEdit, onDelete, onComplete, onStart }) => {
   // Estado para manejar el tiempo restante, si la tarea está corriendo, si está completada y si está en pausa
@@ -77,7 +77,8 @@ const Task = ({ task, onEdit, onDelete, onComplete, onStart }) => {
     Swal.fire({
       title: "Tarea Completada correctamente",
       icon: "success",
-      timer: 1500
+      timer: 1500,
+      showConfirmButton: false,
     });
     setIsRunning(false);
     setIsCompleted(true);
@@ -120,12 +121,11 @@ const Task = ({ task, onEdit, onDelete, onComplete, onStart }) => {
             {!isCompleted && (
               <Tooltip title="Eliminar">
                 <CloseButton 
-                  color="error" 
                   onClick={onDelete} 
                   disabled={isCompleted}
                   aria-label="Eliminar Tarea"
                 >
-                  <DeleteForeverRoundedIcon />
+                  <CloseIcon />
                 </CloseButton>
               </Tooltip>
             )}

@@ -37,8 +37,8 @@ const TaskManager = () => {
       title: `¿Quieres eliminar la tarea "${item.title}"?`,
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#28b1f5",
+      cancelButtonColor: "#c0392b",
       confirmButtonText: "Elimnar",
       cancelButtonText: "Cancelar"
     }).then((result) => {
@@ -46,7 +46,8 @@ const TaskManager = () => {
         Swal.fire({
           title: "Tarea eliminada correctamente",
           icon: "success",
-          timer: 1500
+          timer: 1500,
+          showConfirmButton: false,
         });
         setTasks(tasks.filter(task => task.id !== item.id));
       }

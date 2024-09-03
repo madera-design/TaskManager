@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Swal from 'sweetalert2'
 import Task from '../presentational/Task';
 import SideBar from './SideBar';
 import TaskHistoryChart from './TaskHistoryChart';
@@ -62,22 +63,16 @@ const TaskList = ({ tasks, deleteTask, editTask, openTaskComplete, closeTaskComp
       (!task.completed && !task.inProgress) && filterFunction(task)
     );
     if(filteredTasks.length === 0){
-      toast.error('Tareas con esa duración no encontrada', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        });
+      Swal.fire({
+        title: "Tareas no con esa duración no encontradas",
+        icon: "warning",
+        timer: 1500,
+        showConfirmButton: false,
+      });
       return
     }
     setNewTasks(filteredTasks);
   };
-  const ordenTasksList = (id) =>{
-    console.log(id)
-  }
 
   // Filtra las tareas completadas
   const completedTasks = taskList.filter(task => task.completed);
@@ -90,7 +85,7 @@ const TaskList = ({ tasks, deleteTask, editTask, openTaskComplete, closeTaskComp
         ) : (
           <>
             <SectionTitle>Lista de tareas: {newTasks.length}</SectionTitle>
-            <Filter filterDurations={filterDurations} ordenTasks={ordenTasksList} />
+            <Filter filterDurations={filterDurations}  />
             <GridContainer>
               {newTasks.map(task => (
                 <Task
