@@ -17,10 +17,15 @@ export const TitleHeader = styled.h1`
 `;
 
 export const HeaderContainerBtn = styled.div`
-     text-align: center;
+    text-align: center;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     gap: 24px;
     margin: 2rem 0 1rem 1rem;
+
+    @media (max-width: 550px) {
+        flex-direction: column;
+    }
+        
 `;

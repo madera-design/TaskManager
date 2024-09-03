@@ -57,7 +57,7 @@ export const generateRandomTasks = () => {
   };
 
   // Genera un arreglo de 50 tareas aleatorias
-  const tasks = Array.from({ length: 5 }, () => {
+  const tasks = Array.from({ length: 50 }, () => {
     const duration = getRandomDuration(); // Obtiene una duración aleatoria
     const isCompleted = Math.random() > 0.5;  // 50% de probabilidad de que la tarea esté completada
     return {
