@@ -21,7 +21,7 @@ export const GridContainer = styled.div`
 `;
 
 export const SectionTitle = styled.h2`
-  margin: 16px 0;
+  margin: 2rem 3rem;
   font-size: 1.5em;
   color: #333;
 `;

@@ -22,7 +22,7 @@ export const HeaderContainerBtn = styled.div`
     align-items: center;
     justify-content: flex-start;
     gap: 24px;
-    margin: 2rem 0 1rem 1rem;
+    margin: 2rem 0 1rem 3rem;
 
     @media (max-width: 550px) {
         flex-direction: column;
