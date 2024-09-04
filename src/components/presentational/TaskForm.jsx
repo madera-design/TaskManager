@@ -119,7 +119,6 @@ const TaskForm = ({ open, addTask, updateTask, taskToEdit, setTaskToEdit, closeM
 
   return (
     <Dialog
-      onClose={closeModal}
       aria-labelledby="customized-dialog-title"
       open={open}
       maxWidth="md"
