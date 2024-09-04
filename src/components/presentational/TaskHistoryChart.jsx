@@ -88,7 +88,7 @@ const TaskHistoryChart = ({ open, onClose, data }) => {
           <h2>Tiempo promedio por tarea</h2>
           <Line data={timePerTaskData} />
 
-          <h2>Promedio de Tiempo por Tarea</h2>
+          <h2>Promedio de tiempo por tarea</h2>
           <Bar data={avgTimePerTaskData} />
         </ContainerTask>
       </Box>

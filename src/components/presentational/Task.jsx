@@ -75,7 +75,7 @@ const Task = ({ task, onEdit, onDelete, onComplete, onStart }) => {
   // Marca la tarea como completada y llama a la función onComplete
   const markAsCompleted = () => {
     Swal.fire({
-      title: "Tarea Completada correctamente",
+      title: "Tarea completada correctamente",
       icon: "success",
       timer: 1500,
       showConfirmButton: false,

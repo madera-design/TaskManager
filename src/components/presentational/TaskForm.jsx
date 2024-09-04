@@ -95,7 +95,7 @@ const TaskForm = ({ open, addTask, updateTask, taskToEdit, setTaskToEdit, closeM
       if (taskToEdit) {
         // Actualiza la tarea existente
         Swal.fire({
-          title: "Tarea Editada correctamente",
+          title: "Tarea editada correctamente",
           icon: "success",
           timer: 1500,
           showConfirmButton: false,
