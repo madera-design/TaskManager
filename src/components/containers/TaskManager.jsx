@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TaskForm from '../presentational/TaskForm';
 import TaskList from '../presentational/TaskList';
 import Header from '../presentational/Header';
+import GridSkeleton from '../presentational/GridSkeleton';
 import Swal from 'sweetalert2'
 import { generateRandomTasks } from '../../utils/generateTasks';
 
@@ -16,6 +17,8 @@ const TaskManager = () => {
   const [isSidebarHistory, setSidebarHistory] = useState(false);
   // Estado para controlar la visibilidad de la barra lateral de tareas completadas
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  // Estado para almacenar el loading
+  const [loading, setloading] = useState(false);
 
   // Función para agregar una nueva tarea
   const addTask = (task) => {
@@ -95,28 +98,33 @@ const TaskManager = () => {
 
   // Efecto para generar tareas aleatorias al cargar el componente
   useEffect(() => {
-    const randomTasks = generateRandomTasks(); // Generar tareas aleatorias
-    setTasks(randomTasks); // Establecer las tareas generadas en el estado
+    setTimeout(() => {
+      const randomTasks = generateRandomTasks(); // Generar tareas aleatorias
+      setTasks(randomTasks); // Establecer las tareas generadas en el estado
+      setloading(true)
+    }, 2000);
   }, []); // El array vacío asegura que esto solo se ejecute una vez al montarse el componente
 
   return (
     <div>
-      {/* Renderizar el componente de encabezado con las funciones para crear tareas, abrir el sidebar y abrir el historial */}
       <Header
         onCreatetTask={openModal}
         onOpenSiberbar={openSidebar}
         onOpenHistory={openHistory}
       />
-      {/* Renderizar el componente TaskList con las tareas, funciones para eliminar y editar tareas, y control del sidebar */}
-      <TaskList 
-        tasks={tasks} 
-        deleteTask={deleteTask} 
-        editTask={editTask}
-        openTaskComplete={isSidebarOpen}
-        closeTaskComplete={closeSidebar}
-        openTaskHistory={isSidebarHistory}
-        closeTaskHistory={closeHistory}
-      />
+      {
+        loading ? (
+          <TaskList 
+            tasks={tasks} 
+            deleteTask={deleteTask} 
+            editTask={editTask}
+            openTaskComplete={isSidebarOpen}
+            closeTaskComplete={closeSidebar}
+            openTaskHistory={isSidebarHistory}
+            closeTaskHistory={closeHistory}
+          />
+        ): (<GridSkeleton />)
+      }
       {/* Renderizar el modal de tareas solo si isModalOpen es verdadero */}
       {isModalOpen && (
         <TaskForm
